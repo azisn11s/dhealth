@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call(FeaturesTableSeeder::class);
 
         // Requirements
-        // $this->call(RequestStatusSeeder::class);
+        $this->call(ObatTableMigrationSeeder::class);
+        $this->call(SignaTableMigrationSeeder::class);
 
 
     }
