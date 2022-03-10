@@ -39,6 +39,7 @@ services:
     volumes:
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
       - ./app-laravel:/var/www
+      - ./php/framework:/var/www/framework
 
   cron:
     build: ./app-laravel/
@@ -58,8 +59,8 @@ services:
 
   service:
     build: ./app-laravel/
-    image: upcoretech
-    container_name: service-upcoretech
+    image: dhealth
+    container_name: service-dhealth
     restart: always
     tty: true
     depends_on:
