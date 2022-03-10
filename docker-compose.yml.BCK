@@ -1,0 +1,63 @@
+version: '2'
+
+services: 
+
+  #Laravel
+  app:
+    container_name: laravel_app
+    build: 
+      context: ./
+      dockerfile: development/app.dockerfile
+    volumes: 
+      - ./app-laravel:/var/www
+      # - ./storage:/var/www/storage
+    env_file: 'app-laravel/.env.prod'
+    environment: 
+      - "REDIS_HOST=cache"
+      - "DB_HOST=database"
+
+  #NGINX Web Server
+  web:
+    container_name: nginx_server
+    build: 
+      context: ./
+      dockerfile: development/web.dockerfile
+    volumes: 
+      - ./storage/logs/:/var/log/nginx
+    ports: 
+      - 8282:80
+    restart: always
+  
+  # Postgre Database
+  database:
+    container_name: postgres_database
+    image: postgres:10
+    volumes: 
+      - database-data:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_DB=vuelanod"
+      - "POSTGRES_USER=azis"
+      - "POSTGRES_PASSWORD=password"
+    ports:
+      - 8283:5432
+  
+  # #MySQL Database
+  # database:
+  #   container_name: mysql_database
+  #   image: mysql:5.7
+  #   volumes: 
+  #     - database-data:/var/lib/mysql
+  #   environment:
+  #     - "MYSQL_DATABASE=nitipan"
+  #     - "MYSQL_USER=azis"
+  #     - "MYSQL_PASSWORD=password"
+  #     - "MYSQL_ROOT_PASSWORD=rootpassword"
+  #   ports:
+  #     - 8283:3306
+
+  #Redis
+  cache:
+    image: redis:3.0-alpine
+
+volumes:
+  database-data:

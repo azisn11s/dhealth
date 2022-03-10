@@ -1,0 +1,7 @@
+FROM node:10.20
+
+WORKDIR /src
+
+ENV HOST 0.0.0.0
+
+EXPOSE 3000

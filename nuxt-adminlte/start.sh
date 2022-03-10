@@ -1,0 +1,1 @@
+pm2 start npm --name "upcoretech-1" -- run start
