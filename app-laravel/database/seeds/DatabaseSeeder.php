@@ -16,15 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FeaturesTableSeeder::class);
 
         // Requirements
-        $this->call(RequestStatusSeeder::class);
-        $this->call(UnitTableSeeder::class);
-        $this->call(DepartmentTableSeeder::class);
-        $this->call(UnitTableSeeder::class);
-        
-        // Opt
-        $this->call(EmployeeTableSeeder::class);
-        $this->call(WarehouseTableSeeder::class);
-        $this->call(ItemTableSeeder::class);
+        // $this->call(RequestStatusSeeder::class);
 
 
     }

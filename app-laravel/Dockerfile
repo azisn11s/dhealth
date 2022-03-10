@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
-RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring zip exif pcntl
+RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
 RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
 RUN docker-php-ext-install gd
 
@@ -45,13 +45,13 @@ RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
 # Instll Imagick
-RUN apt-get update \
-    && apt-get -y install \
-            libmagickwand-dev \
-        --no-install-recommends \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
-    && rm -r /var/lib/apt/lists/*
+# RUN apt-get update \
+#     && apt-get -y install \
+#             libmagickwand-dev \
+#         --no-install-recommends \
+#     && pecl install imagick \
+#     && docker-php-ext-enable imagick \
+#     && rm -r /var/lib/apt/lists/*
 
 # Copy existing application directory contents
 #COPY ./laravel /var/www

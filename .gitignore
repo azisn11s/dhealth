@@ -1,1 +1,4 @@
 storage/logs/*.log
+app-laravel/.env.prod
+nuxt-adminlte/dist/*
+app-laravel/storage/logs/*.log

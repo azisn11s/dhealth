@@ -35,7 +35,7 @@ services:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
     working_dir: /var/www
-    command: "/bin/sh -c 'composer install && /usr/local/bin/start'"
+    command: "/bin/sh -c 'composer install && php artisan migrate:fresh && php artisan db:seed && /usr/local/bin/start'" 
     volumes:
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
       - ./app-laravel:/var/www
@@ -82,7 +82,7 @@ services:
       "/bin/sh -c 'npm install && npm run build && npm run start'"
   
   mysql:
-    image: mysql:5.7
+    image: mysql:latest
     restart: always
     environment:
       MYSQL_DATABASE: 'dhealth'
