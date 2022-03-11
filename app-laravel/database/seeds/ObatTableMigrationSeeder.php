@@ -12,7 +12,7 @@ class ObatTableMigrationSeeder extends Seeder
      */
     public function run()
     {
-        $path = 'seeds/external_sql/obatalkes_m.sql';
+        $path = 'seeds/external_sql/obatalkes_m_seed.sql';
         DB::unprepared(file_get_contents(database_path($path)));
         $this->command->info('Obat table seeded!');
     }
