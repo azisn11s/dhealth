@@ -72,171 +72,18 @@ const routes = [
     component: page('role/features')
   },
 
-  // Territories
+  // Resep Obat
   {
-    path: '/territories',
-    name: 'territory.index',
-    component: page('territory/index'),
+    path: '/resep',
+    name: 'resep.index',
+    component: page('resep/index'),
   },
   {
-    path: '/territories/create',
-    name: 'territory.create',
-    component: page('territory/create'),
+    path: '/resep/create',
+    name: 'resep.create',
+    component: page('resep/create'),
   },
-  {
-    path: '/territories/:id/edit',
-    name: 'territory.edit',
-    component: page('territory/edit')
-  },
-
-  // Companies
-  {
-    path: '/companies',
-    name: 'company.index',
-    component: page('company/index'),
-  },
-  {
-    path: '/companies/create',
-    name: 'company.create',
-    component: page('company/create'),
-  },
-  {
-    path: '/companies/:id/edit',
-    name: 'company.edit',
-    component: page('company/edit')
-  },
-
-  // Employees
-  {
-    path: '/employees',
-    name: 'employee.index',
-    component: page('employee/index'),
-  },
-  {
-    path: '/employees/create',
-    name: 'employee.create',
-    component: page('employee/create'),
-  },
-  {
-    path: '/employees/:id/edit',
-    name: 'employee.edit',
-    component: page('employee/edit')
-  },
-
-  // Country
-  {
-    path: '/countries',
-    name: 'country.index',
-    component: page('country/index'),
-  },
-  {
-    path: '/countries/create',
-    name: 'country.create',
-    component: page('country/create'),
-  },
-  {
-    path: '/countries/:id/edit',
-    name: 'country.edit',
-    component: page('country/edit')
-  },
-
-  // Region
-  {
-    path: '/regions',
-    name: 'region.index',
-    component: page('region/index'),
-  },
-  {
-    path: '/regions/create',
-    name: 'region.create',
-    component: page('region/create'),
-  },
-  {
-    path: '/regions/:id/edit',
-    name: 'region.edit',
-    component: page('region/edit')
-  },
-
-  // Area
-  {
-    path: '/areas',
-    name: 'area.index',
-    component: page('area/index'),
-  },
-  {
-    path: '/areas/create',
-    name: 'area.create',
-    component: page('area/create'),
-  },
-  {
-    path: '/areas/:id/edit',
-    name: 'area.edit',
-    component: page('area/edit')
-  },
-
-  // Doctor
-  {
-    path: '/doctors',
-    name: 'doctor.index',
-    component: page('doctor/index'),
-  },
-  {
-    path: '/doctors/create',
-    name: 'doctor.create',
-    component: page('doctor/create'),
-  },
-  {
-    path: '/doctors/:id/edit',
-    name: 'doctor.edit',
-    component: page('doctor/edit')
-  },
-  {
-    path: '/doctors/classifications',
-    name: 'doctor.classification.index',
-    component: page('doctor/classification/index'),
-  },
-  {
-    path: '/doctors/classifications/create',
-    name: 'doctor.classification.create',
-    component: page('doctor/classification/create'),
-  },
-  {
-    path: '/doctors/classifications/:id/edit',
-    name: 'doctor.classification.edit',
-    component: page('doctor/classification/edit')
-  },
-  {
-    path: '/doctors/specialties',
-    name: 'doctor.specialty.index',
-    component: page('doctor/specialty/index'),
-  },
-  {
-    path: '/doctors/specialties/create',
-    name: 'doctor.specialty.create',
-    component: page('doctor/specialty/create'),
-  },
-  {
-    path: '/doctors/specialties/:id/edit',
-    name: 'doctor.specialty.edit',
-    component: page('doctor/specialty/edit')
-  },
-
-  // Teams
-  {
-    path: '/teams',
-    name: 'team.index',
-    component: page('team/index'),
-  },
-  {
-    path: '/teams/create',
-    name: 'team.create',
-    component: page('team/create'),
-  },
-  {
-    path: '/teams/:id/edit',
-    name: 'team.edit',
-    component: page('team/edit')
-  }
+  
 
 ];
 

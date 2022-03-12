@@ -79,7 +79,8 @@ services:
     volumes:
       - ./nuxt-adminlte:/src
     command: 
-      "/bin/sh -c 'npm install && npm run build && npm run start'"
+      "/bin/sh -c 'npm install && npm run dev'"
+      # "/bin/sh -c 'npm install && npm run build && npm run start'"
   
   mysql:
     image: mysql:latest

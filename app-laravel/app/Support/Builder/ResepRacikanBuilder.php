@@ -22,7 +22,7 @@ class ResepRacikanBuilder implements IResepObat
         DB::beginTransaction();
         try {
 
-            $racikan = ResepRacikan::findOrFail($item['id']);
+            $racikan = ResepRacikan::findOrFail($item['obat']['code']);
             
             $resepObatItem = [
                 'resep_id'=> $this->resep->id,

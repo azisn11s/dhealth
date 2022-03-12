@@ -22,9 +22,9 @@ class ResepController extends Controller
 
         // Filter
         if ($request->has('search')) {
-            $query->where('nama_pasien', 'ilike', "%{$request->search}%")
-                ->orWhere('nama_dokter', 'ilike', "%{$request->search}%")
-                ->orWhere('tempat_periksa', 'ilike', "%{$request->search}%");
+            $query->where('nama_pasien', 'like', "%{$request->search}%")
+                ->orWhere('nama_dokter', 'like', "%{$request->search}%")
+                ->orWhere('tempat_periksa', 'like', "%{$request->search}%");
         }
 
         // Order
@@ -66,10 +66,10 @@ class ResepController extends Controller
             'tanggal_periksa'=> ['required', 'date'],
             'catatan'=> ['nullable'],
             'list_obat'=> ['required', 'array'],
-            'list_obat.*.id'=> ['required', 'integer'],
+            'list_obat.*.obat'=> ['required'],
             'list_obat.*.quantity'=> ['required', 'numeric'],
             'list_obat.*.type'=> ['required', 'in:racikan,nonracikan'],
-            'list_obat.*.signa_id'=> ['required', 'exists:signa_m,signa_id']
+            'list_obat.*.signa'=> ['required']
         ]);
 
         DB::beginTransaction();
@@ -137,10 +137,10 @@ class ResepController extends Controller
             'catatan'=> ['nullable'],
             'is_draft'=> ['required', 'boolean'],
             'list_obat'=> ['required', 'array'],
-            'list_obat.*.id'=> ['required', 'integer'],
+            'list_obat.*.obat'=> ['required'],
             'list_obat.*.quantity'=> ['required', 'numeric'],
             'list_obat.*.type'=> ['required', 'in:racikan,nonracikan'],
-            'list_obat.*.signa_id'=> ['required', 'exists:signa_m,signa_id']
+            'list_obat.*.signa'=> ['required']
         ]);
 
         DB::commit();

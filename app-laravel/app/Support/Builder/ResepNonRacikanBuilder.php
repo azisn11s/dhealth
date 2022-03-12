@@ -22,8 +22,8 @@ class ResepNonRacikanBuilder implements IResepObat
         DB::beginTransaction();
         try {
 
-            $obat = Obat::findOrFail($item['id']);
-            $signa = Signa::findOrFail($item['signa_id']);
+            $obat = Obat::findOrFail($item['obat']['code']);
+            $signa = Signa::findOrFail($item['signa']['code']);
 
             $resepNonRacikan = new ModelsResepNonracikan([
                 'quantity'=> $item['quantity'],
