@@ -42,15 +42,14 @@ Route::group(['middleware' => 'auth:api'], function () {
     // Signa
     Route::get('signa-search', 'SignaController@search');
     Route::apiResource('signa', 'SignaController')->only(['index']);
-
+    
     // Base resep
     Route::delete('resep/{resep}/{type}/{entityId}', 'ResepController@destroyItem');
     Route::apiResource('resep', 'ResepController');
-
-    // Resep Non Racikan
-    Route::apiResource('resep-non-racikan', 'ResepNonRacikanController');
-
+    
+    
     // Resep Racikan
+    Route::get('resep-racikan-search', 'ResepRacikanController@search');
     Route::apiResource('resep-racikan', 'ResepRacikanController');
 
 });

@@ -49,6 +49,28 @@ class ResepRacikanController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @param Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $query = DB::table('resep_racikan AS com')
+            ->limit(15)
+            ->orderBy('created_at', 'desc')
+            ->select(['com.id AS code', 'com.nama_racikan AS label']);
+
+        if ($request->has('term')) {
+            $query->whereRaw("(com.nama_racikan like '%$request->term%')");
+        }
+
+        return response()->json([
+            'items'=> $query->get()
+        ]); 
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
