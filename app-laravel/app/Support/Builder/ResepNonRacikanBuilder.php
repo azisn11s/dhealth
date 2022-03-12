@@ -48,5 +48,34 @@ class ResepNonRacikanBuilder implements IResepObat
             throw $th;
         }
     }
+
+    public function dettachObat(string $entityId)
+    {
+        $resepNonRacikan = ModelsResepNonracikan::findOrFail($entityId);
+
+        DB::beginTransaction();
+        try {
+            
+            $resepObatItem = [
+                'resep_id'=> $this->resep->id,
+                'entity_type'=> 'nonracikan',
+                'entity_id'=> $resepNonRacikan->id
+            ];
+    
+            DB::table('resep_obat')->where($resepObatItem)->delete();
+    
+            $resepNonRacikan->delete();
+    
+            
+            
+            DB::commit();
+            
+            return;
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
     
 }

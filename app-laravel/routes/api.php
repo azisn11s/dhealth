@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('signa', 'SignaController')->only(['index']);
 
     // Base resep
+    Route::delete('resep/{resep}/{type}/{entityId}', 'ResepController@destroyItem');
     Route::apiResource('resep', 'ResepController');
 
     // Resep Non Racikan

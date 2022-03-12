@@ -9,6 +9,13 @@ interface IResepObat {
      * 
      * @param array $items | List obat (Racikan atau Non-racikan)
      */
-    public function attachObat(array $items);
+    public function attachObat(array $item);
+
+    /**
+     * Dettach obat-obatan kedalam resep
+     * 
+     * @param array $entityId
+     */
+    public function dettachObat(string $entityId);
 
 }

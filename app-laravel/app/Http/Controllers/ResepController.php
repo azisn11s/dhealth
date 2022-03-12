@@ -135,13 +135,31 @@ class ResepController extends Controller
             'tempat_periksa'=> ['nullable'],
             'tanggal_periksa'=> ['required', 'date'],
             'catatan'=> ['nullable'],
-            'is_draft'=> ['required', 'boolean']
+            'is_draft'=> ['required', 'boolean'],
+            'list_obat'=> ['required', 'array'],
+            'list_obat.*.id'=> ['required', 'integer'],
+            'list_obat.*.quantity'=> ['required', 'numeric'],
+            'list_obat.*.type'=> ['required', 'in:racikan,nonracikan'],
+            'list_obat.*.signa_id'=> ['required', 'exists:signa_m,signa_id']
         ]);
 
         DB::commit();
         try {
             
             $resep->update($request->all());
+
+            $listObat = collect($request->list_obat);
+
+            $listObat->each(function($item) use ($resep){
+                
+                if ($item['type'] === 'nonracikan') {
+                    (new ResepNonRacikanBuilder($resep))->attachObat($item);
+                }
+
+                if ($item['type'] === 'racikan') {
+                    (new ResepRacikanBuilder($resep))->attachObat($item);
+                }
+            });
             
             DB::commit();
 
@@ -165,6 +183,50 @@ class ResepController extends Controller
      */
     public function destroy(Resep $resep)
     {
-        //
+        DB::beginTransaction();
+        try {
+            
+            DB::table('resep_obat')->where('resep_id', $resep->id)->delete();
+
+            $resep->delete();
+            
+            DB::commit();
+
+            return response()->json([
+                'status'=> true,
+                'message'=> 'Berhasil menghapus data resep',
+                'data'=> null
+            ]);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Resep  $resep
+     * @param  string  $type
+     * @param  string  $entityId
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyItem(Resep $resep, string $type, string $entityId)
+    {
+        if ($type === 'nonracikan') {
+            (new ResepNonRacikanBuilder($resep))->dettachObat($entityId);
+        }
+
+        if ($type === 'racikan') {
+            (new ResepRacikanBuilder($resep))->dettachObat($entityId);
+        }
+
+        return response()->json([
+            'status'=> true,
+            'message'=> 'Berhasil menghapus item obat dalam resep',
+            'data'=> Resep::find($resep->id)
+        ]);
     }
 }

@@ -40,5 +40,35 @@ class ResepRacikanBuilder implements IResepObat
             throw $th;
         }
     }
+
+    public function dettachObat(string $entityId)
+    {
+        $resepRacikan = ResepRacikan::findOrFail($entityId);
+
+        DB::beginTransaction();
+        try {
+
+            $resepRacikan->racikanObat()->detach();
+            
+            $resepObatItem = [
+                'resep_id'=> $this->resep->id,
+                'entity_type'=> 'racikan',
+                'entity_id'=> $resepRacikan->id
+            ];
+    
+            DB::table('resep_obat')->where($resepObatItem)->delete();
+    
+            $resepRacikan->delete();
+
+            
+            DB::commit();
+
+            return;
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
     
 }
