@@ -35,10 +35,21 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('role-features/{role}', 'RoleController@addFeatureAbility');
     });
 
-    Route::apiResource('employees', 'EmployeeController');
-    Route::get('employee-search', 'EmployeeController@search');
+    // Obat
+    Route::get('obat-search', 'ObatController@search');
+    Route::apiResource('obat', 'ObatController')->only(['index']);
+    
+    // Signa
+    Route::get('signa-search', 'SignaController@search');
+    Route::apiResource('signa', 'SignaController')->only(['index']);
 
-    // Request Item
-    Route::apiResource('request-items', 'RequestItemController');
+    // Base resep
+    Route::apiResource('resep', 'ResepController');
+
+    // Resep Non Racikan
+    Route::apiResource('resep-non-racikan', 'ResepNonRacikanController');
+
+    // Resep Racikan
+    Route::apiResource('resep-racikan', 'ResepRacikanController');
 
 });

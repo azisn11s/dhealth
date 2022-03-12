@@ -17,8 +17,9 @@ class ResepRacikan extends Model
         return $this->belongsTo(Signa::class, 'signa_id', 'signa_id');
     }
 
-    public function obatObatan()
+    public function racikanObat()
     {
-        return $this->hasMany(RacikanObat::class, 'racikan_id', 'id');
+        return $this->belongsToMany(Obat::class, 'racikan_obat', 'racikan_id', 'obat_id')
+            ->withPivot('obat_id', 'quantity');
     }
 }

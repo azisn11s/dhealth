@@ -14,7 +14,7 @@ class CreateRacikanObatTable extends Migration
     public function up()
     {
         Schema::create('racikan_obat', function (Blueprint $table) {
-            $table->id();
+            // $table->id();
             $table->unsignedBigInteger('racikan_id')->index();
             $table->integer('obat_id')->index();
             $table->integer('quantity');
