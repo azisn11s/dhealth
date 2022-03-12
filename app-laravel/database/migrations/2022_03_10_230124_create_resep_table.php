@@ -19,7 +19,7 @@ class CreateResepTable extends Migration
             $table->string('nama_dokter');
             $table->date('tanggal_periksa');
             $table->string('tempat_periksa')->nullable();
-            $table->boolean('is_draft')->default(true);
+            $table->boolean('is_draft')->default(false);
             $table->text('catatan')->nullable();
             $table->timestamps();
         });

@@ -94,6 +94,21 @@ export default {
 					} 
 				},
 				{
+					field: "is_draft",
+					key: "h",
+					title: "Status",
+					align: "center",
+					renderBodyCell: ({row, column, rowIndex}, h)=> {
+						const status = row[column.field] == 1 ? 'draft' : 'approved';
+						if (status == 'draft') {
+							return (<button class="btn btn-warning btn-xs">Draft</button>);
+						}
+
+						return (<button class="btn btn-primary btn-xs">Approved</button>);
+					},
+					sortBy: "desc"
+				},
+				{
 					field: "created_at",
 					key: "f",
 					title: "Created At",
@@ -111,8 +126,9 @@ export default {
 					align: "center",
 					renderBodyCell: ({row, column, rowIndex}, h)=> {
 						return (
+							
 							<div class="btn-group btn-block">
-								<button type="button" class="btn btn-warning btn-sm" on-click={()=> this.$router.push(`resep/${row['id']}/edit`)}>
+								<button type="button" class="btn btn-warning btn-sm" on-click={()=> 1}>
 									<i class="fas fa-edit"></i>
 								</button>
 								<button type="button" class="btn btn-danger btn-sm" on-click={()=> this.deleteRow(row['id'])}> 
@@ -195,7 +211,7 @@ export default {
 		deleteRow(id){
 
 			this.$swal.fire({
-				title: 'Sure to delete user?',
+				title: 'Sure to delete resep?',
 				showCancelButton: true,
 				confirmButtonText: `Ok, Delete!`,
 			}).then(async (result) => {
@@ -204,7 +220,7 @@ export default {
 					this.$nuxt.$loading.start();
 					try {
 
-						await this.$axios.delete(`admin/users/${id}`);
+						await this.$axios.delete(`resep/${id}`);
 						
 						this.$swal.fire('Deleted successfully!', '', 'success');
 						this.getDataFromApi();
@@ -219,7 +235,7 @@ export default {
 				} 
 				
 				if (result && result.dismiss) {
-					this.$swal.fire('User are not deleted', '', 'info');
+					this.$swal.fire('Resep are not deleted', '', 'info');
 				}
 			})
 

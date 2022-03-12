@@ -80,16 +80,18 @@ class ResepRacikanController extends Controller
     {
         $this->validate($request, [
             'nama_racikan'=> ['required', 'min:3'],
-            'signa_id'=> ['required', 'exists:signa_m,signa_id'],
-            'racikan'=> ['required', 'array'],
-            'racikan.*.obat_id'=> ['required', 'exists:obatalkes_m,obatalkes_id'],
-            'racikan.*.quantity'=> ['required', 'numeric', 'min:1'],
+            'signa'=> ['required'],
+            'signa.code'=> ['required', 'exists:signa_m,signa_id'],
+            'list_obat'=> ['required', 'array'],
+            'list_obat.*.obat'=> ['required'],
+            'list_obat.*.obat.code'=> ['required', 'exists:obatalkes_m,obatalkes_id'],
+            'list_obat.*.quantity'=> ['required', 'numeric', 'min:1'],
         ]);
 
         DB::beginTransaction();
         try {
             
-            $racikanCollection = collect($request->racikan);
+            $racikanCollection = collect($request->list_obat);
 
             if ($racikanCollection->count() < 2) {
                 abort(403, "Racikan minimal teridiri dari 2 obat");
@@ -99,13 +101,13 @@ class ResepRacikanController extends Controller
                 'nama_racikan'=> $request->nama_racikan,
             ]);
 
-            $signa = Signa::findOrFail($request->signa_id);
+            $signa = Signa::findOrFail($request->signa['code']);
 
             $newResepRacikan->signa()->associate($signa)->save();
 
             $racikanCollection->each(function($item) use ($newResepRacikan){
                 $newResepRacikan->racikanObat()->syncWithoutDetaching([
-                    $item['obat_id'] => [
+                    $item['obat']['code'] => [
                         'quantity'=> $item['quantity'], 
                         'created_at'=> Carbon::now(), 
                         'updated_at'=> Carbon::now() 
