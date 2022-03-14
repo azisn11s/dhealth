@@ -26,8 +26,8 @@ services:
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
 
   app:
-    build: ./app-laravel/
-    image: upcoretech
+    build: ./app-laravel-nine/
+    image: dhealth
     restart: always
     tty: true
     environment:
@@ -38,11 +38,26 @@ services:
     command: "/bin/sh -c 'composer install && php artisan migrate:fresh && php artisan db:seed && /usr/local/bin/start'" 
     volumes:
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./app-laravel:/var/www
+      - ./app-laravel-nine:/var/www
+
+  # app:
+  #   build: ./app-laravel/
+  #   image: upcoretech
+  #   restart: always
+  #   tty: true
+  #   environment:
+  #     CONTAINER_ROLE: app
+  #     SERVICE_NAME: app
+  #     SERVICE_TAGS: dev
+  #   working_dir: /var/www
+  #   command: "/bin/sh -c 'composer install && php artisan migrate:fresh && php artisan db:seed && /usr/local/bin/start'" 
+  #   volumes:
+  #     - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+  #     - ./app-laravel:/var/www
 
   cron:
     build: ./app-laravel/
-    image: upcoretech
+    image: dhealth
     restart: always
     tty: true
     depends_on:
