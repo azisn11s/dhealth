@@ -14,6 +14,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(UserSeeder::class);
+        $this->call(RolesSeeder::class);
+        $this->call(FeaturesTableSeeder::class);
+
+        // Requirements
+        $this->call(ObatTableMigrationSeeder::class);
+        $this->call(SignaTableMigrationSeeder::class);
         // \App\Models\User::factory(10)->create();
     }
 }
